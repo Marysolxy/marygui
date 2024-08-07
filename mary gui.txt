@@ -3,79 +3,97 @@ local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local OpenButton = Instance.new("TextButton")
 local CloseButton = Instance.new("TextButton")
+local MinimizeButton = Instance.new("TextButton")
 local TeleportButton = Instance.new("TextButton")
 local PlayerNameBox = Instance.new("TextBox")
 local TargetNameBox = Instance.new("TextBox")
-local ESPButton = Instance.new("TextButton")
-local InvisibilityButton = Instance.new("TextButton")
-local GodModeButton = Instance.new("TextButton")
-local AnimationButton = Instance.new("TextButton")
 local ScrollingFrame = Instance.new("ScrollingFrame")
 
 -- Propriedades da GUI
 ScreenGui.Name = "MyGui"
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-Frame.Name = "MainFrame"
-Frame.Parent = ScreenGui
-Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Cor preta
-Frame.Position = UDim2.new(0.5, -100, 0.5, -150)
-Frame.Size = UDim2.new(0, 200, 0, 350)
-
 ScrollingFrame.Name = "ScrollingFrame"
-ScrollingFrame.Parent = Frame
-ScrollingFrame.Size = UDim2.new(1, 0, 1, 0)
-ScrollingFrame.CanvasSize = UDim2.new(0, 0, 1.5, 0)
+ScrollingFrame.Parent = ScreenGui
+ScrollingFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Fundo preto
+ScrollingFrame.BorderColor3 = Color3.fromRGB(48, 25, 52) -- Bordas roxo bem escuro
+ScrollingFrame.Position = UDim2.new(0.5, -100, 0.5, -100)
+ScrollingFrame.Size = UDim2.new(0, 200, 0, 200)
+ScrollingFrame.CanvasSize = UDim2.new(0, 0, 1, 0)
 ScrollingFrame.ScrollBarThickness = 10
-ScrollingFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Cor preta
-ScrollingFrame.BorderColor3 = Color3.fromRGB(75, 0, 130) -- Borda roxo escuro
 
-local function createButton(name, parent, text, position, size)
-    local button = Instance.new("TextButton")
-    button.Name = name
-    button.Parent = parent
-    button.Text = text
-    button.Position = position
-    button.Size = size
-    button.BackgroundColor3 = Color3.fromRGB(128, 128, 128) -- Cor cinza
-    button.BorderColor3 = Color3.fromRGB(75, 0, 130) -- Borda roxo escuro
-    button.TextColor3 = Color3.fromRGB(255, 255, 255) -- Letras brancas
-    return button
-end
+Frame.Name = "MainFrame"
+Frame.Parent = ScrollingFrame
+Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Fundo preto
+Frame.BorderColor3 = Color3.fromRGB(48, 25, 52) -- Bordas roxo bem escuro
+Frame.Position = UDim2.new(0, 0, 0, 0)
+Frame.Size = UDim2.new(1, 0, 1, 0)
 
-OpenButton = createButton("OpenButton", ScreenGui, "Abrir", UDim2.new(0.5, -50, 0.5, 120), UDim2.new(0, 100, 0, 50))
-CloseButton = createButton("CloseButton", ScrollingFrame, "Fechar", UDim2.new(0.5, -50, 0.5, 100), UDim2.new(0, 100, 0, 50))
-TeleportButton = createButton("TeleportButton", ScrollingFrame, "Teletransportar", UDim2.new(0.5, -50, 0.5, 0), UDim2.new(0, 100, 0, 50))
-ESPButton = createButton("ESPButton", ScrollingFrame, "Ativar ESP", UDim2.new(0.5, -50, 0.5, -110), UDim2.new(0, 100, 0, 25))
-InvisibilityButton = createButton("InvisibilityButton", ScrollingFrame, "Invisibilidade", UDim2.new(0.5, -50, 0.5, -140), UDim2.new(0, 100, 0, 25))
-GodModeButton = createButton("GodModeButton", ScrollingFrame, "God Mode", UDim2.new(0.5, -50, 0.5, -170), UDim2.new(0, 100, 0, 25))
-AnimationButton = createButton("AnimationButton", ScrollingFrame, "Animação", UDim2.new(0.5, -50, 0.5, -200), UDim2.new(0, 100, 0, 25))
+OpenButton.Name = "OpenButton"
+OpenButton.Parent = ScreenGui
+OpenButton.Text = "Abrir"
+OpenButton.Position = UDim2.new(0.5, -50, 0.5, 120)
+OpenButton.Size = UDim2.new(0, 100, 0, 50)
+OpenButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Fundo preto
+OpenButton.BorderColor3 = Color3.fromRGB(48, 25, 52) -- Bordas roxo bem escuro
+OpenButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- Letras brancas
+
+CloseButton.Name = "CloseButton"
+CloseButton.Parent = Frame
+CloseButton.Text = "Fechar"
+CloseButton.Position = UDim2.new(0.5, -50, 0.5, 50)
+CloseButton.Size = UDim2.new(0, 100, 0, 50)
+CloseButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Fundo preto
+CloseButton.BorderColor3 = Color3.fromRGB(48, 25, 52) -- Bordas roxo bem escuro
+CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- Letras brancas
+
+MinimizeButton.Name = "MinimizeButton"
+MinimizeButton.Parent = Frame
+MinimizeButton.Text = "Minimizar"
+MinimizeButton.Position = UDim2.new(0.5, -50, 0.5, 0)
+MinimizeButton.Size = UDim2.new(0, 100, 0, 50)
+MinimizeButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Fundo preto
+MinimizeButton.BorderColor3 = Color3.fromRGB(48, 25, 52) -- Bordas roxo bem escuro
+MinimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- Letras brancas
+
+TeleportButton.Name = "TeleportButton"
+TeleportButton.Parent = Frame
+TeleportButton.Text = "Teletransportar"
+TeleportButton.Position = UDim2.new(0.5, -50, 0.5, -50)
+TeleportButton.Size = UDim2.new(0, 100, 0, 50)
+TeleportButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Fundo preto
+TeleportButton.BorderColor3 = Color3.fromRGB(48, 25, 52) -- Bordas roxo bem escuro
+TeleportButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- Letras brancas
 
 PlayerNameBox.Name = "PlayerNameBox"
-PlayerNameBox.Parent = ScrollingFrame
+PlayerNameBox.Parent = Frame
 PlayerNameBox.PlaceholderText = "Seu Nome"
-PlayerNameBox.Position = UDim2.new(0.5, -50, 0.5, -50)
+PlayerNameBox.Position = UDim2.new(0.5, -50, 0.5, -100)
 PlayerNameBox.Size = UDim2.new(0, 100, 0, 25)
-PlayerNameBox.BackgroundColor3 = Color3.fromRGB(128, 128, 128) -- Cor cinza
-PlayerNameBox.BorderColor3 = Color3.fromRGB(75, 0, 130) -- Borda roxo escuro
+PlayerNameBox.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Fundo preto
+PlayerNameBox.BorderColor3 = Color3.fromRGB(48, 25, 52) -- Bordas roxo bem escuro
 PlayerNameBox.TextColor3 = Color3.fromRGB(255, 255, 255) -- Letras brancas
 
 TargetNameBox.Name = "TargetNameBox"
-TargetNameBox.Parent = ScrollingFrame
+TargetNameBox.Parent = Frame
 TargetNameBox.PlaceholderText = "Nome do Alvo"
-TargetNameBox.Position = UDim2.new(0.5, -50, 0.5, -80)
+TargetNameBox.Position = UDim2.new(0.5, -50, 0.5, -130)
 TargetNameBox.Size = UDim2.new(0, 100, 0, 25)
-TargetNameBox.BackgroundColor3 = Color3.fromRGB(128, 128, 128) -- Cor cinza
-TargetNameBox.BorderColor3 = Color3.fromRGB(75, 0, 130) -- Borda roxo escuro
+TargetNameBox.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Fundo preto
+TargetNameBox.BorderColor3 = Color3.fromRGB(48, 25, 52) -- Bordas roxo bem escuro
 TargetNameBox.TextColor3 = Color3.fromRGB(255, 255, 255) -- Letras brancas
 
 -- Funções dos botões
 OpenButton.MouseButton1Click:Connect(function()
-    Frame.Visible = true
+    ScrollingFrame.Visible = true
 end)
 
 CloseButton.MouseButton1Click:Connect(function()
-    Frame.Visible = false
+    ScrollingFrame.Visible = false
+end)
+
+MinimizeButton.MouseButton1Click:Connect(function()
+    ScrollingFrame.Size = UDim2.new(0, 200, 0, 50)
 end)
 
 TeleportButton.MouseButton1Click:Connect(function()
@@ -84,24 +102,8 @@ TeleportButton.MouseButton1Click:Connect(function()
     teleportPlayer(playerName, targetName)
 end)
 
-ESPButton.MouseButton1Click:Connect(function()
-    activateESP()
-end)
-
-InvisibilityButton.MouseButton1Click:Connect(function()
-    toggleInvisibility()
-end)
-
-GodModeButton.MouseButton1Click:Connect(function()
-    toggleGodMode()
-end)
-
-AnimationButton.MouseButton1Click:Connect(function()
-    playAnimation()
-end)
-
 -- Inicialmente, a Frame está invisível
-Frame.Visible = false
+ScrollingFrame.Visible = false
 
 -- Script de Teletransporte
 local Players = game:GetService("Players")
@@ -118,63 +120,72 @@ function teleportPlayer(playerName, targetPlayerName)
 end
 
 -- Script de ESP
-function activateESP()
-    for _, player in pairs(Players:GetPlayers()) do
-        if player ~= game.Players.LocalPlayer then
-            local highlight = Instance.new("Highlight")
-            highlight.Parent = player.Character
-            if player.Team == game.Players.LocalPlayer.Team then
-                highlight.FillColor = Color3.new(0, 0, 1) -- Azul para aliados
-            else
-                highlight.FillColor = Color3.new(1, 0, 0) -- Vermelho para inimigos
-                createArrow(player)
+local function createESP(player, color)
+    local highlight = Instance.new("Highlight")
+    highlight.Parent = player.Character
+    highlight.Adornee = player.Character
+    highlight.FillColor = color
+    highlight.FillTransparency = 0.5
+    highlight.OutlineColor = color
+    highlight.OutlineTransparency = 0
+end
+
+Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        if player.Team == game.Teams.Allies then
+            createESP(player, Color3.fromRGB(0, 0, 255)) -- Azul para aliados
+        else
+            createESP(player, Color3.fromRGB(255, 0, 0)) -- Vermelho para inimigos
+        end
+    end)
+end)
+
+-- Script de Invisibilidade
+local function toggleInvisibility(player, state)
+    if player.Character then
+        for _, part in pairs(player.Character:GetChildren()) do
+            if part:IsA("BasePart") then
+                part.Transparency = state and 1 or 0
+                part.CanCollide = not state
             end
-            highlight.OutlineColor = Color3.new(1, 1, 1)
         end
     end
 end
 
--- Script de seta vermelha mostrando a distância do inimigo
-function createArrow(target)
-    local arrow = Instance.new("BillboardGui")
-    arrow.Name = "Arrow"
-    arrow.Parent = target.Character.Head
-    arrow.Size = UDim2.new(1, 0, 1, 0)
-    arrow.StudsOffset = Vector3.new(0, 3, 0)
-    arrow.AlwaysOnTop = true
-
-    local frame = Instance.new("Frame")
-    frame.Parent = arrow
-    frame.Size = UDim2.new(1, 0, 1, 0)
-    frame.BackgroundColor3 = Color3.new(1, 0, 0) -- Cor vermelha
-
-    local textLabel = Instance.new("TextLabel")
-    textLabel.Parent = frame
-    textLabel.Size = UDim2.new(1, 0, 1, 0)
-    textLabel.BackgroundTransparency = 1
-    textLabel.TextColor3 = Color3.new(1, 1, 1) -- Cor branca
-    textLabel.TextScaled = true
-
-    game:GetService("RunService").RenderStepped:Connect(function()
-        local distance = (target.Character.PrimaryPart.Position - game.Players.LocalPlayer.Character.PrimaryPart.Position).Magnitude
-        textLabel.Text = string.format("Distância: %.2f", distance)
-    end)
-end
-
--- Script de Invisibilidade
-local isInvisible = false
-
-function toggleInvisibility()
-    local player = game.Players.LocalPlayer
-    if isInvisible then
-        player.Character.HumanoidRootPart.Transparency = 0
-        player.Character.Head.Transparency = 0
+-- Script de Imortalidade (God Mode)
+local function toggleGodMode(player, state)
+    if player.Character then
         for _, part in pairs(player.Character:GetChildren()) do
-            if part:IsA("BasePart") then
-                part.Transparency = 0
+            if part:IsA("Humanoid") then
+                part.MaxHealth = state and math.huge or 100
+                part.Health = part.MaxHealth
             end
         end
-        isInvisible = false
+    end
+end
+
+-- Script de TP Tool
+local tpTool = Instance.new("Tool")
+tpTool.Name = "TP Tool"
+tpTool.RequiresHandle = false
+tpTool.Activated:Connect(function()
+    local target = Players:GetPlayerFromCharacter(game:GetService("Players").LocalPlayer:GetMouse().Target.Parent)
+    if target then
+        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(target.Character.PrimaryPart.CFrame)
+    end
+end)
+tpTool.Parent = game.Players.LocalPlayer.Backpack
+
+-- Script de TP GUI
+TeleportButton.MouseButton1Click:Connect(function()
+    local targetName = TargetNameBox.Text
+    local targetPlayer = Players:FindFirstChild(targetName)
+    if targetPlayer then
+        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(targetPlayer.Character.PrimaryPart.CFrame)
     else
-        player.Character.HumanoidRootPart.Transparency = 1
-        player.Character.Head.Transparency
+        print("Jogador não encontrado")
+    end
+end)
+
+-- Tornar a GUI movível
+local UserInputService = game
