@@ -150,4 +150,4 @@ ESPButton.MouseButton1Click:Connect(function()
         highlight.FillColor = color
         highlight.FillTransparency = 0.5
         highlight.OutlineColor = color
-        highlight.OutlineTransparency =
+        highlight.OutlineTransparency = 0
