@@ -3,13 +3,13 @@ local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local OpenButton = Instance.new("TextButton")
 local CloseButton = Instance.new("TextButton")
-local MinimizeButton = Instance.new("TextButton")
 local TeleportButton = Instance.new("TextButton")
 local PlayerNameBox = Instance.new("TextBox")
 local TargetNameBox = Instance.new("TextBox")
 local ESPButton = Instance.new("TextButton")
 local InvisibilityButton = Instance.new("TextButton")
 local GodModeButton = Instance.new("TextButton")
+local ScrollingFrame = Instance.new("ScrollingFrame")
 
 -- Propriedades da GUI
 ScreenGui.Name = "MyGui"
@@ -21,6 +21,14 @@ Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Cor preta
 Frame.Position = UDim2.new(0.5, -100, 0.5, -150)
 Frame.Size = UDim2.new(0, 200, 0, 350)
 
+ScrollingFrame.Name = "ScrollingFrame"
+ScrollingFrame.Parent = Frame
+ScrollingFrame.Size = UDim2.new(1, 0, 1, 0)
+ScrollingFrame.CanvasSize = UDim2.new(0, 0, 1.5, 0)
+ScrollingFrame.ScrollBarThickness = 10
+ScrollingFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Cor preta
+ScrollingFrame.BorderColor3 = Color3.fromRGB(75, 0, 130) -- Borda roxo escuro
+
 local function createButton(name, parent, text, position, size)
     local button = Instance.new("TextButton")
     button.Name = name
@@ -29,35 +37,34 @@ local function createButton(name, parent, text, position, size)
     button.Position = position
     button.Size = size
     button.BackgroundColor3 = Color3.fromRGB(128, 128, 128) -- Cor cinza
-    button.BorderColor3 = Color3.fromRGB(64, 64, 64) -- Borda cinza escuro
+    button.BorderColor3 = Color3.fromRGB(75, 0, 130) -- Borda roxo escuro
     button.TextColor3 = Color3.fromRGB(255, 255, 255) -- Letras brancas
     return button
 end
 
 OpenButton = createButton("OpenButton", ScreenGui, "Abrir", UDim2.new(0.5, -50, 0.5, 120), UDim2.new(0, 100, 0, 50))
-CloseButton = createButton("CloseButton", Frame, "Fechar", UDim2.new(0.5, -50, 0.5, 100), UDim2.new(0, 100, 0, 50))
-MinimizeButton = createButton("MinimizeButton", Frame, "Minimizar", UDim2.new(0.5, -50, 0.5, 50), UDim2.new(0, 100, 0, 50))
-TeleportButton = createButton("TeleportButton", Frame, "Teletransportar", UDim2.new(0.5, -50, 0.5, 0), UDim2.new(0, 100, 0, 50))
-ESPButton = createButton("ESPButton", Frame, "Ativar ESP", UDim2.new(0.5, -50, 0.5, -110), UDim2.new(0, 100, 0, 25))
-InvisibilityButton = createButton("InvisibilityButton", Frame, "Invisibilidade", UDim2.new(0.5, -50, 0.5, -140), UDim2.new(0, 100, 0, 25))
-GodModeButton = createButton("GodModeButton", Frame, "God Mode", UDim2.new(0.5, -50, 0.5, -170), UDim2.new(0, 100, 0, 25))
+CloseButton = createButton("CloseButton", ScrollingFrame, "Fechar", UDim2.new(0.5, -50, 0.5, 100), UDim2.new(0, 100, 0, 50))
+TeleportButton = createButton("TeleportButton", ScrollingFrame, "Teletransportar", UDim2.new(0.5, -50, 0.5, 0), UDim2.new(0, 100, 0, 50))
+ESPButton = createButton("ESPButton", ScrollingFrame, "Ativar ESP", UDim2.new(0.5, -50, 0.5, -110), UDim2.new(0, 100, 0, 25))
+InvisibilityButton = createButton("InvisibilityButton", ScrollingFrame, "Invisibilidade", UDim2.new(0.5, -50, 0.5, -140), UDim2.new(0, 100, 0, 25))
+GodModeButton = createButton("GodModeButton", ScrollingFrame, "God Mode", UDim2.new(0.5, -50, 0.5, -170), UDim2.new(0, 100, 0, 25))
 
 PlayerNameBox.Name = "PlayerNameBox"
-PlayerNameBox.Parent = Frame
+PlayerNameBox.Parent = ScrollingFrame
 PlayerNameBox.PlaceholderText = "Seu Nome"
 PlayerNameBox.Position = UDim2.new(0.5, -50, 0.5, -50)
 PlayerNameBox.Size = UDim2.new(0, 100, 0, 25)
 PlayerNameBox.BackgroundColor3 = Color3.fromRGB(128, 128, 128) -- Cor cinza
-PlayerNameBox.BorderColor3 = Color3.fromRGB(64, 64, 64) -- Borda cinza escuro
+PlayerNameBox.BorderColor3 = Color3.fromRGB(75, 0, 130) -- Borda roxo escuro
 PlayerNameBox.TextColor3 = Color3.fromRGB(255, 255, 255) -- Letras brancas
 
 TargetNameBox.Name = "TargetNameBox"
-TargetNameBox.Parent = Frame
+TargetNameBox.Parent = ScrollingFrame
 TargetNameBox.PlaceholderText = "Nome do Alvo"
 TargetNameBox.Position = UDim2.new(0.5, -50, 0.5, -80)
 TargetNameBox.Size = UDim2.new(0, 100, 0, 25)
 TargetNameBox.BackgroundColor3 = Color3.fromRGB(128, 128, 128) -- Cor cinza
-TargetNameBox.BorderColor3 = Color3.fromRGB(64, 64, 64) -- Borda cinza escuro
+TargetNameBox.BorderColor3 = Color3.fromRGB(75, 0, 130) -- Borda roxo escuro
 TargetNameBox.TextColor3 = Color3.fromRGB(255, 255, 255) -- Letras brancas
 
 -- Funções dos botões
@@ -67,10 +74,6 @@ end)
 
 CloseButton.MouseButton1Click:Connect(function()
     Frame.Visible = false
-end)
-
-MinimizeButton.MouseButton1Click:Connect(function()
-    Frame.Size = UDim2.new(0, 200, 0, 50)
 end)
 
 TeleportButton.MouseButton1Click:Connect(function()
@@ -114,7 +117,11 @@ function activateESP()
         if player ~= game.Players.LocalPlayer then
             local highlight = Instance.new("Highlight")
             highlight.Parent = player.Character
-            highlight.FillColor = player.TeamColor.Color
+            if player.Team == game.Players.LocalPlayer.Team then
+                highlight.FillColor = Color3.new(0, 0, 1) -- Azul para aliados
+            else
+                highlight.FillColor = Color3.new(1, 0, 0) -- Vermelho para inimigos
+            end
             highlight.OutlineColor = Color3.new(1, 1, 1)
         end
     end
@@ -161,3 +168,27 @@ function toggleGodMode()
         isGodMode = true
     end
 end
+
+-- Script de seta vermelha mostrando a distância do inimigo
+function createArrow(target)
+    local arrow = Instance.new("BillboardGui")
+    arrow.Name = "Arrow"
+    arrow.Parent = target.Character.Head
+    arrow.Size = UDim2.new(1, 0, 1, 0)
+    arrow.StudsOffset = Vector3.new(0, 3, 0)
+    arrow.AlwaysOnTop = true
+
+    local frame = Instance.new("Frame")
+    frame.Parent = arrow
+    frame.Size = UDim2.new(1, 0, 1, 0)
+    frame.BackgroundColor3 = Color3.new(1, 0, 0) -- Cor vermelha
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Parent = frame
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.TextColor3 = Color3.new(1, 1, 1) -- Cor branca
+    textLabel.TextScaled = true
+
+    game:GetService("RunService").RenderStepped:Connect(function()
+        local distance = (target.Character
