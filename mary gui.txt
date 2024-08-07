@@ -3,11 +3,14 @@ local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local OpenButton = Instance.new("TextButton")
 local CloseButton = Instance.new("TextButton")
-local MinimizeButton = Instance.new("TextButton")
 local TeleportButton = Instance.new("TextButton")
 local PlayerNameBox = Instance.new("TextBox")
 local TargetNameBox = Instance.new("TextBox")
 local ScrollingFrame = Instance.new("ScrollingFrame")
+local ToolboxButton = Instance.new("TextButton")
+local ESPButton = Instance.new("TextButton")
+local InvisibilityButton = Instance.new("TextButton")
+local GodModeButton = Instance.new("TextButton")
 
 -- Propriedades da GUI
 ScreenGui.Name = "MyGui"
@@ -37,6 +40,7 @@ OpenButton.Size = UDim2.new(0, 100, 0, 50)
 OpenButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Fundo preto
 OpenButton.BorderColor3 = Color3.fromRGB(48, 25, 52) -- Bordas roxo bem escuro
 OpenButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- Letras brancas
+OpenButton.Draggable = true
 
 CloseButton.Name = "CloseButton"
 CloseButton.Parent = Frame
@@ -46,15 +50,6 @@ CloseButton.Size = UDim2.new(0, 100, 0, 50)
 CloseButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Fundo preto
 CloseButton.BorderColor3 = Color3.fromRGB(48, 25, 52) -- Bordas roxo bem escuro
 CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- Letras brancas
-
-MinimizeButton.Name = "MinimizeButton"
-MinimizeButton.Parent = Frame
-MinimizeButton.Text = "Minimizar"
-MinimizeButton.Position = UDim2.new(0.5, -50, 0.5, 0)
-MinimizeButton.Size = UDim2.new(0, 100, 0, 50)
-MinimizeButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Fundo preto
-MinimizeButton.BorderColor3 = Color3.fromRGB(48, 25, 52) -- Bordas roxo bem escuro
-MinimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- Letras brancas
 
 TeleportButton.Name = "TeleportButton"
 TeleportButton.Parent = Frame
@@ -83,6 +78,42 @@ TargetNameBox.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Fundo preto
 TargetNameBox.BorderColor3 = Color3.fromRGB(48, 25, 52) -- Bordas roxo bem escuro
 TargetNameBox.TextColor3 = Color3.fromRGB(255, 255, 255) -- Letras brancas
 
+ToolboxButton.Name = "ToolboxButton"
+ToolboxButton.Parent = Frame
+ToolboxButton.Text = "Toolbox"
+ToolboxButton.Position = UDim2.new(0.5, -50, 0.5, -180)
+ToolboxButton.Size = UDim2.new(0, 100, 0, 50)
+ToolboxButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Fundo preto
+ToolboxButton.BorderColor3 = Color3.fromRGB(48, 25, 52) -- Bordas roxo bem escuro
+ToolboxButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- Letras brancas
+
+ESPButton.Name = "ESPButton"
+ESPButton.Parent = Frame
+ESPButton.Text = "Ativar ESP"
+ESPButton.Position = UDim2.new(0.5, -50, 0.5, -230)
+ESPButton.Size = UDim2.new(0, 100, 0, 50)
+ESPButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Fundo preto
+ESPButton.BorderColor3 = Color3.fromRGB(48, 25, 52) -- Bordas roxo bem escuro
+ESPButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- Letras brancas
+
+InvisibilityButton.Name = "InvisibilityButton"
+InvisibilityButton.Parent = Frame
+InvisibilityButton.Text = "Invisibilidade"
+InvisibilityButton.Position = UDim2.new(0.5, -50, 0.5, -280)
+InvisibilityButton.Size = UDim2.new(0, 100, 0, 50)
+InvisibilityButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Fundo preto
+InvisibilityButton.BorderColor3 = Color3.fromRGB(48, 25, 52) -- Bordas roxo bem escuro
+InvisibilityButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- Letras brancas
+
+GodModeButton.Name = "GodModeButton"
+GodModeButton.Parent = Frame
+GodModeButton.Text = "God Mode"
+GodModeButton.Position = UDim2.new(0.5, -50, 0.5, -330)
+GodModeButton.Size = UDim2.new(0, 100, 0, 50)
+GodModeButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Fundo preto
+GodModeButton.BorderColor3 = Color3.fromRGB(48, 25, 52) -- Bordas roxo bem escuro
+GodModeButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- Letras brancas
+
 -- Funções dos botões
 OpenButton.MouseButton1Click:Connect(function()
     ScrollingFrame.Visible = true
@@ -92,100 +123,34 @@ CloseButton.MouseButton1Click:Connect(function()
     ScrollingFrame.Visible = false
 end)
 
-MinimizeButton.MouseButton1Click:Connect(function()
-    ScrollingFrame.Size = UDim2.new(0, 200, 0, 50)
-end)
-
 TeleportButton.MouseButton1Click:Connect(function()
     local playerName = PlayerNameBox.Text
     local targetName = TargetNameBox.Text
     teleportPlayer(playerName, targetName)
 end)
 
--- Inicialmente, a Frame está invisível
-ScrollingFrame.Visible = false
-
--- Script de Teletransporte
-local Players = game:GetService("Players")
-
-function teleportPlayer(playerName, targetPlayerName)
-    local player = Players:FindFirstChild(playerName)
-    local targetPlayer = Players:FindFirstChild(targetPlayerName)
-    
-    if player and targetPlayer then
-        player.Character:SetPrimaryPartCFrame(targetPlayer.Character.PrimaryPart.CFrame)
-    else
-        print("Jogador não encontrado")
-    end
-end
-
--- Script de ESP
-local function createESP(player, color)
-    local highlight = Instance.new("Highlight")
-    highlight.Parent = player.Character
-    highlight.Adornee = player.Character
-    highlight.FillColor = color
-    highlight.FillTransparency = 0.5
-    highlight.OutlineColor = color
-    highlight.OutlineTransparency = 0
-end
-
-Players.PlayerAdded:Connect(function(player)
-    player.CharacterAdded:Connect(function(character)
-        if player.Team == game.Teams.Allies then
-            createESP(player, Color3.fromRGB(0, 0, 255)) -- Azul para aliados
-        else
-            createESP(player, Color3.fromRGB(255, 0, 0)) -- Vermelho para inimigos
+ToolboxButton.MouseButton1Click:Connect(function()
+    local tpTool = Instance.new("Tool")
+    tpTool.Name = "TP Tool"
+    tpTool.RequiresHandle = false
+    tpTool.Activated:Connect(function()
+        local target = Players:GetPlayerFromCharacter(game:GetService("Players").LocalPlayer:GetMouse().Target.Parent)
+        if target then
+            game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(target.Character.PrimaryPart.CFrame)
         end
     end)
+    tpTool.Parent = game.Players.LocalPlayer.Backpack
 end)
 
--- Script de Invisibilidade
-local function toggleInvisibility(player, state)
-    if player.Character then
-        for _, part in pairs(player.Character:GetChildren()) do
-            if part:IsA("BasePart") then
-                part.Transparency = state and 1 or 0
-                part.CanCollide = not state
-            end
-        end
+ESPButton.MouseButton1Click:Connect(function()
+    local function createESP(player, color)
+        local highlight = Instance.new("Highlight")
+        highlight.Parent = player.Character
+        highlight.Adornee = player.Character
+        highlight.FillColor = color
+        highlight.FillTransparency = 0.5
+        highlight.OutlineColor = color
+        highlight.OutlineTransparency = 0
     end
-end
 
--- Script de Imortalidade (God Mode)
-local function toggleGodMode(player, state)
-    if player.Character then
-        for _, part in pairs(player.Character:GetChildren()) do
-            if part:IsA("Humanoid") then
-                part.MaxHealth = state and math.huge or 100
-                part.Health = part.MaxHealth
-            end
-        end
-    end
-end
-
--- Script de TP Tool
-local tpTool = Instance.new("Tool")
-tpTool.Name = "TP Tool"
-tpTool.RequiresHandle = false
-tpTool.Activated:Connect(function()
-    local target = Players:GetPlayerFromCharacter(game:GetService("Players").LocalPlayer:GetMouse().Target.Parent)
-    if target then
-        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(target.Character.PrimaryPart.CFrame)
-    end
-end)
-tpTool.Parent = game.Players.LocalPlayer.Backpack
-
--- Script de TP GUI
-TeleportButton.MouseButton1Click:Connect(function()
-    local targetName = TargetNameBox.Text
-    local targetPlayer = Players:FindFirstChild(targetName)
-    if targetPlayer then
-        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(targetPlayer.Character.PrimaryPart.CFrame)
-    else
-        print("Jogador não encontrado")
-    end
-end)
-
--- Tornar a GUI movível
-local UserInputService = game
+    Players.PlayerAdded:Connect(function(player)
