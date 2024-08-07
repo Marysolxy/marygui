@@ -9,6 +9,7 @@ local TargetNameBox = Instance.new("TextBox")
 local ESPButton = Instance.new("TextButton")
 local InvisibilityButton = Instance.new("TextButton")
 local GodModeButton = Instance.new("TextButton")
+local AnimationButton = Instance.new("TextButton")
 local ScrollingFrame = Instance.new("ScrollingFrame")
 
 -- Propriedades da GUI
@@ -48,6 +49,7 @@ TeleportButton = createButton("TeleportButton", ScrollingFrame, "Teletransportar
 ESPButton = createButton("ESPButton", ScrollingFrame, "Ativar ESP", UDim2.new(0.5, -50, 0.5, -110), UDim2.new(0, 100, 0, 25))
 InvisibilityButton = createButton("InvisibilityButton", ScrollingFrame, "Invisibilidade", UDim2.new(0.5, -50, 0.5, -140), UDim2.new(0, 100, 0, 25))
 GodModeButton = createButton("GodModeButton", ScrollingFrame, "God Mode", UDim2.new(0.5, -50, 0.5, -170), UDim2.new(0, 100, 0, 25))
+AnimationButton = createButton("AnimationButton", ScrollingFrame, "Animação", UDim2.new(0.5, -50, 0.5, -200), UDim2.new(0, 100, 0, 25))
 
 PlayerNameBox.Name = "PlayerNameBox"
 PlayerNameBox.Parent = ScrollingFrame
@@ -94,6 +96,10 @@ GodModeButton.MouseButton1Click:Connect(function()
     toggleGodMode()
 end)
 
+AnimationButton.MouseButton1Click:Connect(function()
+    playAnimation()
+end)
+
 -- Inicialmente, a Frame está invisível
 Frame.Visible = false
 
@@ -121,51 +127,10 @@ function activateESP()
                 highlight.FillColor = Color3.new(0, 0, 1) -- Azul para aliados
             else
                 highlight.FillColor = Color3.new(1, 0, 0) -- Vermelho para inimigos
+                createArrow(player)
             end
             highlight.OutlineColor = Color3.new(1, 1, 1)
         end
-    end
-end
-
--- Script de Invisibilidade
-local isInvisible = false
-
-function toggleInvisibility()
-    local player = game.Players.LocalPlayer
-    if isInvisible then
-        player.Character.HumanoidRootPart.Transparency = 0
-        player.Character.Head.Transparency = 0
-        for _, part in pairs(player.Character:GetChildren()) do
-            if part:IsA("BasePart") then
-                part.Transparency = 0
-            end
-        end
-        isInvisible = false
-    else
-        player.Character.HumanoidRootPart.Transparency = 1
-        player.Character.Head.Transparency = 1
-        for _, part in pairs(player.Character:GetChildren()) do
-            if part:IsA("BasePart") then
-                part.Transparency = 1
-            end
-        end
-        isInvisible = true
-    end
-end
-
--- Script de God Mode
-local isGodMode = false
-
-function toggleGodMode()
-    local player = game.Players.LocalPlayer
-    if isGodMode then
-        player.Character.Humanoid.MaxHealth = 100
-        player.Character.Humanoid.Health = 100
-        isGodMode = false
-    else
-        player.Character.Humanoid.MaxHealth = math.huge
-        player.Character.Humanoid.Health = math.huge
-        isGodMode = true
     end
 end
 
@@ -191,4 +156,25 @@ function createArrow(target)
     textLabel.TextScaled = true
 
     game:GetService("RunService").RenderStepped:Connect(function()
-        local distance = (target.Character
+        local distance = (target.Character.PrimaryPart.Position - game.Players.LocalPlayer.Character.PrimaryPart.Position).Magnitude
+        textLabel.Text = string.format("Distância: %.2f", distance)
+    end)
+end
+
+-- Script de Invisibilidade
+local isInvisible = false
+
+function toggleInvisibility()
+    local player = game.Players.LocalPlayer
+    if isInvisible then
+        player.Character.HumanoidRootPart.Transparency = 0
+        player.Character.Head.Transparency = 0
+        for _, part in pairs(player.Character:GetChildren()) do
+            if part:IsA("BasePart") then
+                part.Transparency = 0
+            end
+        end
+        isInvisible = false
+    else
+        player.Character.HumanoidRootPart.Transparency = 1
+        player.Character.Head.Transparency
