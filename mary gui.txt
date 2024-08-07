@@ -1,0 +1,123 @@
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+-- Funções de Teletransporte, Voo, etc.
+function teleportToPlayer(playerName)
+    local targetPlayer = Players:FindFirstChild(playerName)
+    if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+        LocalPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame
+    else
+        print("Player not found or invalid target.")
+    end
+end
+
+local flying = false
+function toggleFly()
+    flying = not flying
+    if flying then
+        LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+        LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, 50, 0)
+    else
+        LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
+    end
+end
+
+function createTeleportTool()
+    local tool = Instance.new("Tool")
+    tool.Name = "TeleportTool"
+    tool.RequiresHandle = false
+    tool.Activated:Connect(function()
+        local mouse = LocalPlayer:GetMouse()
+        local targetPos = mouse.Hit.p
+        LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(targetPos)
+    end)
+    tool.Parent = LocalPlayer.Backpack
+end
+
+function createESP(player)
+    local esp = Instance.new("BillboardGui", player.Character.Head)
+    esp.Name = "ESP"
+    esp.Size = UDim2.new(1, 0, 1, 0)
+    esp.AlwaysOnTop = true
+
+    local frame = Instance.new("Frame", esp)
+    frame.Size = UDim2.new(1, 0, 1, 0)
+    frame.BackgroundTransparency = 0.5
+    frame.BackgroundColor3 = Color3.new(1, 0, 0)
+end
+
+function updateESP()
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("Head") then
+            if not player.Character.Head:FindFirstChild("ESP") then
+                createESP(player)
+            end
+        end
+    end
+end
+
+game:GetService("RunService").RenderStepped:Connect(updateESP)
+
+function toggleInvisibility()
+    for _, part in pairs(LocalPlayer.Character:GetChildren()) do
+        if part:IsA("BasePart") then
+            part.Transparency = part.Transparency == 0 and 1 or 0
+            part.CanCollide = part.Transparency == 0
+        end
+    end
+end
+
+function killAll()
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("Humanoid") then
+            player.Character.Humanoid.Health = 0
+        end
+    end
+end
+
+function enableGodMode()
+    LocalPlayer.Character.Humanoid.Name = "1"
+    local newHumanoid = LocalPlayer.Character["1"]:Clone()
+    newHumanoid.Parent = LocalPlayer.Character
+    newHumanoid.Name = "Humanoid"
+    LocalPlayer.Character["1"]:Destroy()
+    game:GetService("Workspace").CurrentCamera.CameraSubject = LocalPlayer.Character.Humanoid
+end
+
+-- GUI
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+local Frame = Instance.new("Frame", ScreenGui)
+Frame.Size = UDim2.new(0, 200, 0, 400)
+Frame.Position = UDim2.new(0, 10, 0, 10)
+Frame.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+
+local buttons = {
+    {Name = "Teleport to Player", Function = function() teleportToPlayer("NomeDoJogador") end},
+    {Name = "Toggle Fly", Function = toggleFly},
+    {Name = "Create Teleport Tool", Function = createTeleportTool},
+    {Name = "Toggle Invisibility", Function = toggleInvisibility},
+    {Name = "Kill All", Function = killAll},
+    {Name = "Enable God Mode", Function = enableGodMode}
+}
+
+for i, buttonInfo in ipairs(buttons) do
+    local Button = Instance.new("TextButton", Frame)
+    Button.Size = UDim2.new(1, 0, 0, 50)
+    Button.Position = UDim2.new(0, 0, 0, (i-1) * 50)
+    Button.Text = buttonInfo.Name
+    Button.MouseButton1Click:Connect(buttonInfo.Function)
+end
+
+-- Ajustes para Mobile
+ScreenGui.IgnoreGuiInset = true
+ScreenGui.ResetOnSpawn = false
+
+Frame.Size = UDim2.new(0.3, 0, 0.5, 0)
+Frame.Position = UDim2.new(0.35, 0, 0.25, 0)
+
+for _, button in ipairs(Frame:GetChildren()) do
+    if button:IsA("TextButton") then
+        button.TextScaled = true
+        button.Size = UDim2.new(1, 0, 0.1, 0)
+    end
+end
